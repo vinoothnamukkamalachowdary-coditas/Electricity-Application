@@ -22,4 +22,8 @@ public class State {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<District> districts;
+
+    @ManyToOne
+    @JoinColumn(name = "state_head_id")
+    private Users stateHead;
 }

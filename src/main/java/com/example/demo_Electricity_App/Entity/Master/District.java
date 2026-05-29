@@ -27,4 +27,7 @@ public class District {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<City> cities;
 
+    @ManyToOne
+    @JoinColumn(name = "district_head_id")
+    private Users districtHead;
 }
