@@ -6,6 +6,6 @@ public enum Role {
     STATE_HEAD,
     DISTRICT_HEAD,
     CITY_HEAD,
-    ELECTRICIAN,
+    TECHNICIAN,
     BILLER
 }

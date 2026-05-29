@@ -1,27 +1,25 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bpo {
+public class BpoStates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String stateName;
 
-    @ManyToOne
-    @JoinColumn(name = "bpo_state_id")
-    private BpoStates BpoStates;
+    private boolean is_Active;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
+    @OneToMany
+    private List<Bpo> bpo;
 }
