@@ -18,7 +18,7 @@ public class City {
 
     private String name;
 
-    private boolean is_Active;
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "city_head_id")
@@ -28,6 +28,6 @@ public class City {
     @JoinColumn(name = "district_id")
     private District district;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Area> areas;
 }

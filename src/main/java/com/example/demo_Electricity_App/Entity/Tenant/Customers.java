@@ -2,6 +2,8 @@ package com.example.demo_Electricity_App.Entity.Tenant;
 
 import com.example.demo_Electricity_App.Entity.Master.Users;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,15 +19,26 @@ public class Customers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String customerName;
 
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
 
-    private Long mobile;
+    private String mobile;
 
     private String Address;
 
+    @Column(length = 10)
     private Long pincode;
+
+    // geographic fields required during enrollment (cross-schema IDs)
+    private Long masterStateId;
+    private Long masterDistrictId;
+    private Long masterCityId;
+    private Long masterServiceAreaId;
 
     @ManyToOne
     @JoinColumn(name = "tenants_id")
@@ -35,9 +48,9 @@ public class Customers {
     @JoinColumn(name = "meter_type_id")
     private MeterTypes meterType;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customers",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Complaints> complaint;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customers",cascade = CascadeType.ALL)
     private List<Bills> bill;
 }

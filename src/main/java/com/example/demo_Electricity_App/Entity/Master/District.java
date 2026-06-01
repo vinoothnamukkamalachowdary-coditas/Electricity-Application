@@ -16,6 +16,7 @@ public class District {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String districtName;
 
     private boolean isActive;
@@ -24,7 +25,7 @@ public class District {
     @JoinColumn(name = "state_id")
     private State state;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<City> cities;
 
     @ManyToOne

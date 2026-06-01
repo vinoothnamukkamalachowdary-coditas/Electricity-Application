@@ -16,15 +16,16 @@ public class Area {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
 
-    private boolean is_Active;
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "area",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<ServiceArea> services;
 
 }

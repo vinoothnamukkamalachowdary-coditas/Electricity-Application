@@ -1,6 +1,8 @@
 package com.example.demo_Electricity_App.Entity.Master;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,15 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
+
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private String Role;
@@ -28,6 +36,6 @@ public class Users {
 
     private LocalDateTime created_at;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Portfolios> portfolios;
 }

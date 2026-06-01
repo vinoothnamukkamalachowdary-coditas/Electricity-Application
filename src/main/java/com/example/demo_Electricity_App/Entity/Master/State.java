@@ -16,11 +16,12 @@ public class State {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false,unique = true)
     private String name;
 
     private boolean is_Active;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "states", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<District> districts;
 
     @ManyToOne

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -19,16 +21,24 @@ public class Complaints {
     @JoinColumn(name = "customers_id")
     private Customers customer;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(length = 1000)
     private String complaintDescription;
 
     @Enumerated(EnumType.STRING)
     private ComplaintsStatus status;
 
-    private Long assigned_Personnel_Id;
+    @ManyToOne
+    @JoinColumn(name = "assigned_personnel_id")
+    private TenantUsers assignedPersonnel;
 
-    private Long technician_Id;
+    private Long masterTechnicianId;
 
     private Integer Escalation_level;
+
+    private LocalDateTime raisedAt;
+    private LocalDateTime resolvedAt;
+    private LocalDateTime lastUpdatedAt;
 }

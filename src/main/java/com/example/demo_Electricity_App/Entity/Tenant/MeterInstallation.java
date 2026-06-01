@@ -16,16 +16,22 @@ public class MeterInstallation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "customers_id")
     private Customers customers;
 
+    @Column(nullable = false,unique = true)
     private int meterNumber;
 
-    private Long technician_id;
+    private Long masterTechnicianIid;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "meterInstallation", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<MeterReading> readings;
+
+    @OneToOne
+    @JoinColumn(name = "connection_request_id")
+    private ConnectionRequest connectionRequest;
 
     private LocalDate installationDate;
 }

@@ -32,4 +32,8 @@ public class Bills {
     @JoinColumn(name = "customers_id")
     private Customers customer;
 
+    @OneToOne
+    @JoinColumn(name = "meter_reading_id")
+    private MeterReading meterReading;
+
 }

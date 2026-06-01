@@ -1,6 +1,7 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,19 @@ public class BpoStates {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String stateName;
 
-    private boolean is_Active;
+    private boolean isActive;
 
-    @OneToMany
+    @OneToMany(mappedBy = "bpoStates",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Bpo> bpo;
+
+    @Column(name = "master_state_id")
+    private Long masterStateId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "tenant_id")
+    private Tenants tenant;
+
 }

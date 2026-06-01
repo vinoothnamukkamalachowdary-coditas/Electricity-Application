@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -14,15 +16,19 @@ public class MeterReading {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double previous_Readings;
+    private Double previousReading;
 
-    private Double current_Readings;
+    private Double currentReading;
 
-    private Double consumed_Units;
+    private Double consumedUnits;
 
-    private Double reading_Rate;
+    private Double rateSnapshotPerUnit;
 
     @ManyToOne
     @JoinColumn(name = "installation_id")
     private MeterInstallation installation;
+
+    private LocalDateTime readingDate;
+
+    private Long masterBillerId;
 }

@@ -18,13 +18,26 @@ public class ConnectionRequest {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ConnectionStatus status;
 
-    private LocalDateTime requested_At;
+    private LocalDateTime requestedAt;
 
-    private LocalDateTime approved_At;
+    private LocalDateTime approvedAt;
 
     @ManyToOne
     @JoinColumn(name = "customers_id")
     private Customers customer;
+
+    @ManyToOne
+    @JoinColumn(name = "meter_type_id")
+    private MeterTypes meterType;
+
+    // who approved (Operational Head or CRM with approval authority)
+    @ManyToOne
+    @JoinColumn(name = "approved_by_id")
+    private TenantUsers approvedBy;
+
+    // Cross-schema reference to Master.ServiceArea.id (determines the technician)
+    private Long masterServiceAreaId;
 }

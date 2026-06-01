@@ -17,7 +17,7 @@ public class Portfolios {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "salesHead_users_id")
     private Users salesHead;
 
     @ManyToOne

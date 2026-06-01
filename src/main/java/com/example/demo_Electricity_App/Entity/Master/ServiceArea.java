@@ -18,7 +18,7 @@ public class ServiceArea {
 
     @ManyToOne
     @JoinColumn(name = "area_id")
-    private Area areaName;
+    private Area area;
 
     @ManyToOne
     @JoinColumn(name = "technician_id")
