@@ -1,6 +1,4 @@
 package com.example.demo_Electricity_App.Config;
-
-import com.example.demo_Electricity_App.Entity.Tenant.Customers;
 import com.example.demo_Electricity_App.Filter.JwtFilter;
 import com.example.demo_Electricity_App.Service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
