@@ -24,7 +24,7 @@ public class MeterInstallation {
     @Column(nullable = false,unique = true)
     private int meterNumber;
 
-    private Long masterTechnicianIid;
+    private Long masterTechnicianId;
 
     @OneToMany(mappedBy = "meterInstallation", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<MeterReading> readings;

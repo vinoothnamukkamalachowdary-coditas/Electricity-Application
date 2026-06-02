@@ -9,46 +9,73 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-    private final JwtUtil util;
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
+
+    private final JwtUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
 
-        String header = request.getHeader("Authorization");
+        String authHeader = request.getHeader(AUTHORIZATION_HEADER);
+        String token = extractToken(authHeader);
 
-        String username = null;
-        String token = null;
-
-        if (header != null && header.startsWith("Bearer ")) {
-            token = header.substring(7);
-            try {
-                username = util.extractUsername(token);
-            } catch (Exception e) {
-                System.out.println("Invalid JWT Token");
-            }
+        if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            processToken(token);
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Claims claims = util.parseClaims(token);
-            TenantContext.setTenant(claims.get("tenant").toString());
-            UserDetails userdetails = customUserDetailsService.loadUserByUsername(username);
-            if(util.isValid(token)){
-                UsernamePasswordAuthenticationToken user = new UsernamePasswordAuthenticationToken(userdetails, null, userdetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(user);
-            }
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            TenantContext.clearTenant();
         }
-        filterChain.doFilter(request, response);
+    }
+
+    private String extractToken(String authHeader) {
+        if (authHeader != null && authHeader.startsWith(BEARER_PREFIX)) {
+            return authHeader.substring(BEARER_PREFIX.length());
+        }
+        return null;
+    }
+
+    private void processToken(String token) {
+        try {
+            Claims claims = jwtUtil.parseClaims(token);
+            String username = claims.getSubject();
+            String tenant   = (String) claims.get("tenant");
+
+            if (tenant != null) {
+                TenantContext.setTenant(tenant);
+            }
+
+            if (username != null && jwtUtil.isValid(token)) {
+                UserDetails userDetails =
+                        customUserDetailsService.loadUserByUsername(username);
+
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        } catch (Exception e) {
+            log.warn("JWT processing failed: {}", e.getMessage());
+        }
     }
 }

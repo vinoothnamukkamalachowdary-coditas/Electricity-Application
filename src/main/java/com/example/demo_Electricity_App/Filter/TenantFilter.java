@@ -13,7 +13,7 @@ public class TenantFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String tenant = request.getHeader("X-Tenant-ID");
-        if (tenant != null) {
+        if (tenant != null && !tenant.isBlank()) {
             TenantContext.setTenant(tenant);
         }
         try{

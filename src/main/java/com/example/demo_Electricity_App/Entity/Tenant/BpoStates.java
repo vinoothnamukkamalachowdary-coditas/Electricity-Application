@@ -22,7 +22,7 @@ public class BpoStates {
 
     private boolean isActive;
 
-    @OneToMany(mappedBy = "bpoStates",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "bpoState",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Bpo> bpo;
 
     @Column(name = "master_state_id")

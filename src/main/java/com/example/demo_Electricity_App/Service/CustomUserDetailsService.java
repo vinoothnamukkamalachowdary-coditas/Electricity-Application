@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+    private static final String MASTER_SCHEMA = "public";
+
     @Autowired
     private UsersRepository usersRepository;
     @Autowired
@@ -18,8 +20,23 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(TenantContext.getTenant() == null) return usersRepository.findByEmail(username);
-        else if(TenantContext.getTenant().equals("public")) return usersRepository.findByEmail(username);
-        else return tenantUsersRepository.findByEmail(username);
+        String currentTenant = TenantContext.getTenant();
+
+        if (currentTenant == null || MASTER_SCHEMA.equals(currentTenant)) {
+            UserDetails user = usersRepository.findByEmail(username);
+            if (user == null) {
+                throw new UsernameNotFoundException(
+                        "Master user not found with email: " + username);
+            }
+            return user;
+        }
+
+        UserDetails tenantUser = tenantUsersRepository.findByEmail(username);
+        if (tenantUser == null) {
+            throw new UsernameNotFoundException(
+                    "Tenant user not found with email: " + username
+                            + " in schema: " + currentTenant);
+        }
+        return tenantUser;
     }
 }

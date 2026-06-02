@@ -27,20 +27,19 @@ public class JwtUtil {
             return build(email, role, schemaName);
         }
 
-        private String build(String email, String role, String scope) {
+        private String build(String email, String role, String tenant) {
             long now = System.currentTimeMillis();
             return Jwts.builder()
                     .setSubject(email)
                     .claim("role",  role)
-                    .claim("scope", scope)
+                    .claim("tenant", tenant)
                     .setIssuedAt(new Date(now))
                     .setExpiration(new Date(now + EXPIRATION))
-                    .signWith(key,SignatureAlgorithm.ES256)
+                    .signWith(key,SignatureAlgorithm.HS256)
                     .compact();
         }
 
         // Token validation
-
         public boolean isValid(String token) {
             try {
                 parseClaims(token);
@@ -60,8 +59,8 @@ public class JwtUtil {
             return parseClaims(token).get("role", String.class);
         }
 
-        public String getScope(String token) {
-            return parseClaims(token).get("scope", String.class);
+        public String getTenant(String token) {
+            return parseClaims(token).get("tenant", String.class);
         }
 
         public Claims parseClaims(String token) {

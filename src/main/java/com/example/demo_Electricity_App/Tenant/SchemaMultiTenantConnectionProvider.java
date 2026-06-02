@@ -1,15 +1,19 @@
 package com.example.demo_Electricity_App.Tenant;
 
+import jakarta.persistence.Column;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+@Component
 public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectionProvider<String> {
     private final DataSource dataSource;
 
     public SchemaMultiTenantConnectionProvider(DataSource dataSource) {
+
         this.dataSource = dataSource;
     }
 
@@ -28,7 +32,7 @@ public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectio
         try {
             connection.createStatement().execute("SET search_path TO " + tenantIdentifier );
         } catch (SQLException e) {
-            throw new RuntimeException("Could not alter JDBC connection to use schema [" + tenantIdentifier + "]", e);
+            throw new RuntimeException("Could not alter JDBC connection to schema [" + tenantIdentifier + "]", e);
         }
         return connection;
     }
@@ -41,16 +45,19 @@ public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectio
 
     @Override
     public boolean supportsAggressiveRelease() {
+
         return false;
     }
 
     @Override
     public boolean isUnwrappableAs(Class<?> unwrapType) {
+
         return false;
     }
 
     @Override
     public <T> T unwrap(Class<T> unwrapType) {
+
         return null;
     }
 }
