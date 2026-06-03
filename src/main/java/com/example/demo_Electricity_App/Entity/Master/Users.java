@@ -1,6 +1,6 @@
 package com.example.demo_Electricity_App.Entity.Master;
 
-import com.example.demo_Electricity_App.Enums.Tenant.Role;
+import com.example.demo_Electricity_App.Enums.Master.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
