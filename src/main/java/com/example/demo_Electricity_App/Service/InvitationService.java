@@ -1,0 +1,124 @@
+package com.example.demo_Electricity_App.Service;
+
+import com.example.demo_Electricity_App.DTO.Master.Request.InvitationRequestDTO;
+import com.example.demo_Electricity_App.DTO.Master.Response.InvitationResponseDTO;
+import com.example.demo_Electricity_App.Entity.Master.Invitation;
+import com.example.demo_Electricity_App.Repository.InvitationRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Service
+@Transactional
+@Slf4j
+@RequiredArgsConstructor
+public class InvitationService {
+    private final InvitationRepository invitationRepository;
+    private final JavaMailSender javaMailSender;
+    private final InvitationRepository inviteRepo;
+
+    public InvitationResponseDTO sendInvitation(InvitationRequestDTO invitationRequestDto, Authentication auth) {
+        InvitationRequestDTO invite = InvitationRequestDTO.builder()
+                .issuedAt(LocalDateTime.now())
+                .issuedTo(issuedTo)
+                .invitationToken(UUID.randomUUID().toString())
+                .role(role)
+                .issuedBy(user)
+                .expiresAt(LocalDateTime.now().plusDays(2))
+                .build();
+
+
+        inviteRepo.save(invite);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
+        mailMessage.setFrom("mikhel.pottella@coditas.com");
+        mailMessage.setTo(issuedTo);
+        mailMessage.setSubject("Invitation to on the application as a "+role.name());
+        mailMessage.setText(message + "\n**this link will expire in next 48hrs \n invitation link : https://santa-disobey-washtub.ngrok-free.dev" + path + invite.getInvitationToken());
+
+        javaMailSender.send(mailMessage);
+        log.info("Invitation to on the application as a owner");
+        return "invitation sent successfully";
+    }
+
+
+    }
+
+//
+//    public Boolean validate(String email, String token) {
+//        if(token.isEmpty()) throw new CustomException(HttpStatus.BAD_REQUEST, "please share the invitation code");
+//        Invitation invite = inviteRepo.findByInvitationToken(token);
+//        log.info("validating the user token ");
+//        return email.equals(invite.getIssuedTo());
+//    }
+//
+//    public String inviteOperationHead(@Valid InvitationRequestDto request) {
+//        log.info("invite operational head successfully");
+//        return inviteUser(request.issuedTo(), Role.OPERATIONAL_HEAD,request.message(),path);
+//    }
+//
+//
+//    public String inviteManagement(InvitationRequestDto invitationRequestDto) {
+//        log.info("invite management successfully");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.MANAGEMENT_STAFF, invitationRequestDto.message(), path);
+//    }
+//
+//
+//    public String inviteSalesPoint(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite sales-point successfully");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.SALES_POINT, invitationRequestDto.message(), path);
+//    }
+//
+//
+//    public String inviteStateManager(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to state management staff is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.STATE_MANAGEMENT_STAFF, invitationRequestDto.message(), path);
+//    }
+//
+//    public String inviteDistrictManager(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to district management staff is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.DISTRICT_MANAGEMENT_STAFF, invitationRequestDto.message(), path);
+//    }
+//
+//    public String inviteOperationHeadAsAdmin(InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to admin of a provider is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.TENANT_ADMIN, invitationRequestDto.message(), "/tenant/auth/register/");
+//
+//    }
+//
+//    public String inviteCityManager(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to city is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.CITY_MANAGEMENT_STAFF, invitationRequestDto.message(), path);
+//
+//    }
+//
+//    public Invitation getInvite(String invitation) {
+//        return inviteRepo.findByInvitationToken(invitation);
+//    }
+//
+//    public String inviteBiller(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to biller is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.BILLER, invitationRequestDto.message(), path);
+//
+//    }
+//
+//    public String inviteCrm(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to biller is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.CMR, invitationRequestDto.message(), path);
+//
+//    }
+//
+//    public String inviteElectrician(@Valid InvitationRequestDto invitationRequestDto) {
+//        log.info("invite to biller is successful");
+//        return inviteUser(invitationRequestDto.issuedTo(), Role.ELECTRICIAN, invitationRequestDto.message(), path);
+//
+//    }
+

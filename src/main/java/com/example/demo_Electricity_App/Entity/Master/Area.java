@@ -19,6 +19,9 @@ public class Area {
     @Column(nullable = false)
     private String name;
 
+    @Column(unique = true)
+    private String areaCode;
+
     private boolean isActive;
 
     @ManyToOne

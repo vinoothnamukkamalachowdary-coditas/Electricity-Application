@@ -1,12 +1,14 @@
 package com.example.demo_Electricity_App.DTO.Master.Request;
 
-import com.example.demo_Electricity_App.Enums.Master.Role;
+import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class InvitationRequestDTO {
     @NotBlank(message = "Do not leave blank")
     @Email(message = "enter a valid email address")

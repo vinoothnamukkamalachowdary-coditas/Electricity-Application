@@ -27,9 +27,9 @@ public class Tenants {
     @OneToMany(mappedBy = "tenants",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<TenantUsers> tenantUsers;
 
-    @OneToMany(mappedBy = "tenants",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<MeterTypes> meterType;
 
-    @OneToMany(mappedBy = "tenants",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "tenant",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<BpoStates> states;
 }

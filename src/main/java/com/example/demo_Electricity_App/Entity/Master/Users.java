@@ -1,10 +1,11 @@
 package com.example.demo_Electricity_App.Entity.Master;
 
-import com.example.demo_Electricity_App.Enums.Master.Role;
+import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class Users implements UserDetails {
 
     private LocalDateTime created_at;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "salesHead", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Portfolios> portfolios;
 
     @Override

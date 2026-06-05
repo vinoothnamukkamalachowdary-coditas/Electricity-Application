@@ -1,6 +1,6 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.Role;
+import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

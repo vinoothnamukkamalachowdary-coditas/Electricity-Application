@@ -1,4 +1,4 @@
-package com.example.demo_Electricity_App.Enums.Tenant;
+package com.example.demo_Electricity_App.Enums;
 
 public enum ComplaintsStatus {
     OPEN,

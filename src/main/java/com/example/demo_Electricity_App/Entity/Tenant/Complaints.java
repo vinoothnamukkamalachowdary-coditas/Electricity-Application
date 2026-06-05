@@ -1,6 +1,6 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.ComplaintsStatus;
+import com.example.demo_Electricity_App.Enums.ComplaintsStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class Complaints {
 
     @ManyToOne
     @JoinColumn(name = "customers_id")
-    private Customers customer;
+    private Customers bpoState;
 
     @Column(nullable = false)
     private String title;

@@ -1,6 +1,6 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.Role;
+import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +32,8 @@ public class TenantUsers implements UserDetails {
     private String email;
 
     private String password;
+
+    private  String schemaName;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

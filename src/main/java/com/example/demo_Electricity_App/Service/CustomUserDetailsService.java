@@ -1,5 +1,6 @@
 package com.example.demo_Electricity_App.Service;
 
+import com.example.demo_Electricity_App.Entity.Master.Users;
 import com.example.demo_Electricity_App.Repository.Master.UsersRepository;
 import com.example.demo_Electricity_App.Repository.Tenant.TenantUsersRepository;
 import com.example.demo_Electricity_App.Tenant.TenantContext;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -19,24 +22,27 @@ public class CustomUserDetailsService implements UserDetailsService {
     private TenantUsersRepository tenantUsersRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+
         String currentTenant = TenantContext.getTenant();
 
         if (currentTenant == null || MASTER_SCHEMA.equals(currentTenant)) {
-            UserDetails user = usersRepository.findByEmail(username);
-            if (user == null) {
-                throw new UsernameNotFoundException(
-                        "Master user not found with email: " + username);
-            }
-            return user;
+
+            return usersRepository.findByEmail(username)
+                    .orElseThrow(() ->
+                            new UsernameNotFoundException(
+                                    "Master user not found with email: " + username
+                            ));
         }
 
-        UserDetails tenantUser = tenantUsersRepository.findByEmail(username);
-        if (tenantUser == null) {
-            throw new UsernameNotFoundException(
-                    "Tenant user not found with email: " + username
-                            + " in schema: " + currentTenant);
-        }
-        return tenantUser;
+        return tenantUsersRepository.findByEmail(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(
+                                "Tenant user not found with email: "
+                                        + username
+                                        + " in schema: "
+                                        + currentTenant
+                        ));
     }
 }

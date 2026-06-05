@@ -1,6 +1,6 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.ConnectionStatus;
+import com.example.demo_Electricity_App.Enums.ConnectionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

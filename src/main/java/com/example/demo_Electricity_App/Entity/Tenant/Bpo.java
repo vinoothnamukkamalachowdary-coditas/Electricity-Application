@@ -1,6 +1,5 @@
 package com.example.demo_Electricity_App.Entity.Tenant;
 
-import com.example.demo_Electricity_App.Enums.Tenant.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,11 +24,6 @@ public class Bpo {
     @JoinColumn(name = "bpo_state_id")
     private BpoStates bpoState;
 
-    /**
-     * Cross-schema references to Master District and City.
-     * Service layer resolves these against the master DB.
-     * Null means the person covers the entire state.
-     */
     private Long masterDistrictId;
     private Long masterCityId;
 

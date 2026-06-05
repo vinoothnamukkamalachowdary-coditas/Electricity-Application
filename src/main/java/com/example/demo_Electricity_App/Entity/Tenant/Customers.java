@@ -48,9 +48,9 @@ public class Customers {
     @JoinColumn(name = "meter_type_id")
     private MeterTypes meterType;
 
-    @OneToMany(mappedBy = "customers",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "bpoState",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Complaints> complaint;
 
-    @OneToMany(mappedBy = "customers",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Bills> bill;
 }

@@ -1,7 +1,6 @@
 package com.example.demo_Electricity_App.DTO.Master.Response;
 
-import com.example.demo_Electricity_App.Enums.Master.Role;
-import lombok.AllArgsConstructor;
+import com.example.demo_Electricity_App.Enums.Role;
 import lombok.Data;
 
 import java.time.LocalDateTime;

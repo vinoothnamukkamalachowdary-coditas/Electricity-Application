@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 
 public interface TenantUsersRepository extends JpaRepository<TenantUsers,Long> {
-    TenantUsers findByEmail(String username);
+    Optional<TenantUsers> findByEmail(String username);
     boolean existsBySchemaName(String schemaName);
-    Optional<Tenant> findBySchemaName(String schemaName);
 }

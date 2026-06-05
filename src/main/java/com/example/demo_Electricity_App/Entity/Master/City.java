@@ -18,6 +18,8 @@ public class City {
 
     private String name;
 
+    private String pincode;
+
     private boolean isActive;
 
     @ManyToOne

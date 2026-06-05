@@ -26,7 +26,7 @@ public class MeterInstallation {
 
     private Long masterTechnicianId;
 
-    @OneToMany(mappedBy = "meterInstallation", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "installation", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<MeterReading> readings;
 
     @OneToOne
