@@ -3,6 +3,7 @@ package com.example.demo_Electricity_App.Entity.Master;
 import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Invitation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

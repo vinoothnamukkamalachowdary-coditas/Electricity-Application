@@ -1,4 +1,4 @@
-package com.example.demo_Electricity_App.DTO.Master.Request;
+package com.example.demo_Electricity_App.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

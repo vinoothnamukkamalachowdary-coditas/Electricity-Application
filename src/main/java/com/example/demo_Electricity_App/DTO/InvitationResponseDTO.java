@@ -1,4 +1,4 @@
-package com.example.demo_Electricity_App.DTO.Master.Response;
+package com.example.demo_Electricity_App.DTO;
 
 import com.example.demo_Electricity_App.Enums.Role;
 import lombok.Data;

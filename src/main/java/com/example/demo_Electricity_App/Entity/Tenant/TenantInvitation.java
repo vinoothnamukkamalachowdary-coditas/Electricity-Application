@@ -24,7 +24,7 @@ public class TenantInvitation {
     private LocalDateTime issuedAt;
 
     @Column(nullable = false)
-    private LocalDateTime expireTime;
+    private LocalDateTime expiresAt;
 
     @Column(nullable = false)
     private String issuedTo;
