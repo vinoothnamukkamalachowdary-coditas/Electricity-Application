@@ -3,14 +3,13 @@ import com.example.demo_Electricity_App.DTO.Master.Request.TenantOnBoardRequestD
 import com.example.demo_Electricity_App.DTO.Master.Response.TenantResponseDTO;
 import com.example.demo_Electricity_App.Entity.Master.Tenant;
 import com.example.demo_Electricity_App.Entity.Tenant.TenantUsers;
-import com.example.demo_Electricity_App.Mapper.TenantMapper;
+import com.example.demo_Electricity_App.Mapper.Master.TenantMapper;
 import com.example.demo_Electricity_App.Repository.Master.TenantRepository;
 import com.example.demo_Electricity_App.Repository.Tenant.TenantUsersRepository;
 import com.example.demo_Electricity_App.Service.FlywayService;
 import com.example.demo_Electricity_App.Tenant.TenantContext;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;

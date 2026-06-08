@@ -2,9 +2,10 @@ package com.example.demo_Electricity_App.Mapper;
 
 import com.example.demo_Electricity_App.DTO.InvitationResponseDTO;
 import com.example.demo_Electricity_App.Entity.Master.Invitation;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-
+@Component
 public class InvitationMapper {
     public InvitationResponseDTO toResponse(Invitation invitation) {
 

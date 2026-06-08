@@ -28,7 +28,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
+            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**","/swagger-ui/**",
+                            "/v3/api-docs/**",
+                            "/webjars/**").permitAll()
                     .anyRequest().authenticated())
             .httpBasic(Customizer.withDefaults())
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
