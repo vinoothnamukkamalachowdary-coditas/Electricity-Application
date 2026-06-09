@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Portfolios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "salesHead_users_id")

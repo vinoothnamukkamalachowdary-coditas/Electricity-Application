@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class PortfolioResponseDTO {
-    private Integer id;
+    private Long id;
     private Long salesHeadUserId;
     private String salesHeadName;
     private Long tenantId;
