@@ -1,11 +1,4 @@
--- ============================================================
--- V1: Tenant Schema – Per Electricity-Provider Tables
---     Applied automatically whenever a new provider is onboarded.
---     The schema name (e.g. "mseb", "reliance_power") is set by
---     FlywayService before calling flyway.migrate().
--- ============================================================
 
--- Mirror of the provider itself inside the tenant schema
 CREATE TABLE IF NOT EXISTS tenants (
     id            BIGSERIAL PRIMARY KEY,
     name          VARCHAR(255) NOT NULL,
@@ -130,7 +123,7 @@ CREATE TABLE IF NOT EXISTS complaints (
     last_updated_at       TIMESTAMP
 );
 
--- Tenant-scoped invitation tokens (for inviting BPO staff, operational heads, etc.)
+-- for inviting BPO staff, operational heads, etc.
 CREATE TABLE IF NOT EXISTS tenant_invitation (
     id               BIGSERIAL PRIMARY KEY,
     invitation_token VARCHAR(255) NOT NULL,

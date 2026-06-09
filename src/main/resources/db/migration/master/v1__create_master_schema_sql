@@ -1,6 +1,3 @@
--- ============================================================
--- V1: Master Schema – Coditas Platform Tables
--- ============================================================
 
 CREATE TABLE IF NOT EXISTS users (
     id            BIGSERIAL PRIMARY KEY,
