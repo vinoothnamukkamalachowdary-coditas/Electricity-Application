@@ -1,6 +1,6 @@
-package com.example.demo_Electricity_App.Mapper;
+package com.example.demo_Electricity_App.Mapper.Master;
 
-import com.example.demo_Electricity_App.DTO.InvitationResponseDTO;
+import com.example.demo_Electricity_App.DTO.Master.Response.InvitationResponseDTO;
 import com.example.demo_Electricity_App.Entity.Master.Invitation;
 import org.springframework.stereotype.Component;
 

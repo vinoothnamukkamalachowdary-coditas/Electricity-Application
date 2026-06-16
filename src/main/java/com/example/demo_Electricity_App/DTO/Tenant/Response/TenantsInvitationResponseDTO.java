@@ -1,4 +1,4 @@
-package com.example.demo_Electricity_App.DTO;
+package com.example.demo_Electricity_App.DTO.Tenant.Response;
 
 import com.example.demo_Electricity_App.Enums.Role;
 import lombok.Data;
@@ -6,9 +6,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class InvitationResponseDTO {
+public class TenantsInvitationResponseDTO {
+
     private Long id;
-    private String invitationToken;
+    private String invtationToken;
     private String issuedTo;
     private Role role;
     private LocalDateTime issuedAt;

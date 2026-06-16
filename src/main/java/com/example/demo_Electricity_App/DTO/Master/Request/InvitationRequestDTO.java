@@ -1,4 +1,4 @@
-package com.example.demo_Electricity_App.DTO;
+package com.example.demo_Electricity_App.DTO.Master.Request;
 
 import com.example.demo_Electricity_App.Enums.Role;
 import jakarta.validation.constraints.Email;

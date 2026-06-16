@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface TenantUsersRepository extends JpaRepository<TenantUsers,Long> {
     Optional<TenantUsers> findByEmail(String username);
     boolean existsBySchemaName(String schemaName);
+
+    boolean existsByEmail(String issuedTo);
 }
