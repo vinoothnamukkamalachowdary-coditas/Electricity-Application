@@ -10,7 +10,7 @@ public class StateMapper {
         StateResponseDTO stateResponseDTO = new StateResponseDTO();
         stateResponseDTO.setId(state.getId());
         stateResponseDTO.setName(state.getName());
-        stateResponseDTO.setActive(state.is_Active());
+        stateResponseDTO.setActive(state.isActive());
         if (state.getStateHead() != null) {
             stateResponseDTO.setStateHeadId(state.getStateHead().getId());
             stateResponseDTO.setStateHeadName(state.getStateHead().getName());

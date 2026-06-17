@@ -7,7 +7,7 @@ public class CityResponseDTO {
     private Long id;
     private String name;
     private boolean isActive;
-    private Integer districtId;
+    private Long districtId;
     private String districtName;
     private Long cityHeadId;
     private String cityHeadName;

@@ -28,7 +28,7 @@ public class StateService {
         Users stateHead = usersRepo.findById(stateRequestDTO.getStateHeadId()).orElseThrow(() -> new ResourceNotFoundException("State Head not found" + stateRequestDTO.getStateHeadId()));
         State state = new State();
         state.setName(stateRequestDTO.getName());
-        state.set_Active(true);
+        state.setActive(true);
         state.setStateHead(stateHead);
         return stateMapper.responseDTO(stateRepository.save(state));
     }

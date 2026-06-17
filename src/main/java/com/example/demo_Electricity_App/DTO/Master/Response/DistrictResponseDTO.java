@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class DistrictResponseDTO {
-    private Integer id;
+    private Long id;
     private String districtName;
     private boolean isActive;
     private Long stateId;

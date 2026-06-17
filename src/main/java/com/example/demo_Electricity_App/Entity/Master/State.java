@@ -21,7 +21,7 @@ public class State {
     @Column(nullable = false,unique = true)
     private String name;
 
-    private boolean is_Active;
+    private boolean isActive;
 
     @OneToMany(mappedBy = "state", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<District> districts;
