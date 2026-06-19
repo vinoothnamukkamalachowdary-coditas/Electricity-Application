@@ -36,7 +36,7 @@ public class Complaints {
 
     private Long masterTechnicianId;
 
-    private Integer Escalation_level;
+    private Integer escalationLevel;
 
     private LocalDateTime raisedAt;
     private LocalDateTime resolvedAt;
