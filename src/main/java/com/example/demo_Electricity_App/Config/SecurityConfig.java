@@ -28,23 +28,150 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/master/login",
-                            "/api/auth/master/register",
-                            // Accept master invitation (invitee has no token yet)
-                            "/api/send/invitation/accept",
-                            // Tenant auth
-                            "/api/auth/tenant/login",
-                            // Accept tenant invitation (invitee has no token yet)
-                            "/api/tenant/invitation/accept",
-                            "/swagger-ui/**",
-                            "/v3/api-docs/**",
-                            "/webjars/**").permitAll()
-                    .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults())
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-            .userDetailsService(customUserDetailsService);
-    return http.build();
+
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+
+                .authorizeHttpRequests(auth -> auth
+
+
+                        .requestMatchers(
+                                "/api/auth/master/login",
+                                "/api/auth/master/register",
+                                "/api/auth/tenant/login",
+                                "/api/send/invitation/accept",
+                                "/api/tenant/invitation/accept",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/webjars/**"
+                        ).permitAll()
+
+
+                        .requestMatchers(
+                                "/api/master/users/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM"
+                        )
+
+                        .requestMatchers(
+                                "/api/master/portfolios/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM",
+                                "SALES_TEAM"
+                        )
+
+                        .requestMatchers(
+                                "/api/master/states/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM",
+                                "STATE_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/master/distircts/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM",
+                                "STATE_HEAD",
+                                "DISTRICT_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/master/city/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM",
+                                "STATE_HEAD",
+                                "DISTRICT_HEAD",
+                                "CITY_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/master/area/**",
+                                "/api/master/servicearea/**"
+                        ).hasAnyRole(
+                                "ADMIN",
+                                "MANAGEMENT_TEAM",
+                                "STATE_HEAD",
+                                "DISTRICT_HEAD",
+                                "CITY_HEAD"
+                        )
+
+
+                        .requestMatchers(
+                                "/api/tenant/meter-types/**"
+                        ).hasAnyRole(
+                                "TENANT_ADMIN",
+                                "POC",
+                                "OPERATIONAL_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/bpo/**",
+                                "/api/tenant/bpo-states/**"
+                        ).hasAnyRole(
+                                "TENANT_ADMIN",
+                                "OPERATIONAL_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/customers/**",
+                                "/api/tenant/connection-request/**"
+                        ).hasAnyRole(
+                                "CRM",
+                                "OPERATIONAL_HEAD",
+                                "TENANT_ADMIN"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/meter-installation/**"
+                        ).hasAnyRole(
+                                "TECHNICIAN",
+                                "CITY_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/meter-reading/**"
+                        ).hasAnyRole(
+                                "BILLER",
+                                "CITY_HEAD"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/bills/**"
+                        ).hasAnyRole(
+                                "BILLER",
+                                "CITY_HEAD",
+                                "OPERATIONAL_HEAD",
+                                "TENANT_ADMIN"
+                        )
+
+                        .requestMatchers(
+                                "/api/tenant/complaints/**"
+                        ).hasAnyRole(
+                                "PERSONNEL",
+                                "MANAGER",
+                                "HIGHER_MANAGER",
+                                "TECHNICIAN"
+                        )
+
+                        .anyRequest()
+                        .authenticated()
+                )
+
+                .httpBasic(Customizer.withDefaults())
+
+                .addFilterBefore(
+                        jwtFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
+
+                .userDetailsService(customUserDetailsService);
+
+        return http.build();
     }
 
     @Bean
