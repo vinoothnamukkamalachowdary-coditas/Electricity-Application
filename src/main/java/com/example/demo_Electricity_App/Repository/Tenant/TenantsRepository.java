@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TenantsRepository extends JpaRepository<Tenants, Long> {
-    List<Tenants> findByIs_Active(boolean isActive);
+    List<Tenants> findByIsActive(boolean isActive);
 
     Optional<Tenants> findFirstByOrderByIdAsc();
 }

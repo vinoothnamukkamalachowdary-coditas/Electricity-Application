@@ -22,7 +22,7 @@ public class Tenants {
 
     private LocalDateTime on_BoardedAt;
 
-    private boolean is_Active;
+    private boolean isActive;
 
     @OneToMany(mappedBy = "tenants",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<TenantUsers> tenantUsers;

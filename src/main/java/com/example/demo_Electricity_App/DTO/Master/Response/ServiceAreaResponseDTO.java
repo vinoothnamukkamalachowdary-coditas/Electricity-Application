@@ -8,6 +8,8 @@ public class ServiceAreaResponseDTO {
     private String code;
     private Long areaId;
     private String areaName;
+    private Long cityId;
+    private String cityName;
     private Long technicianId;
     private String technicianName;
     private Long billerId;
