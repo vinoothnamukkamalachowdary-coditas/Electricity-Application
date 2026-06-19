@@ -29,7 +29,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**","/swagger-ui/**",
+            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/master/login",
+                            "/api/auth/master/register",
+                            // Accept master invitation (invitee has no token yet)
+                            "/api/send/invitation/accept",
+                            // Tenant auth
+                            "/api/auth/tenant/login",
+                            // Accept tenant invitation (invitee has no token yet)
+                            "/api/tenant/invitation/accept",
+                            "/swagger-ui/**",
                             "/v3/api-docs/**",
                             "/webjars/**").permitAll()
                     .anyRequest().authenticated())

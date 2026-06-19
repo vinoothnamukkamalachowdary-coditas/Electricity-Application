@@ -31,6 +31,12 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<Map<String, Object>> handleInvalidOperation(
+            InvalidOperationException ex){
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleException(Exception ex){
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
